@@ -15,7 +15,7 @@
  *
  */
 
-package com.mongodb;
+package com.mongodb.week_1;
 
 import static spark.Spark.get;
 

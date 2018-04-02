@@ -1,4 +1,4 @@
-package com.mongodb;
+package com.mongodb.week_1;
 
 /**
  * Hello world!
