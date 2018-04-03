@@ -33,7 +33,7 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
     public static void main(String[] args)  {
         final Configuration configuration = new Configuration();
         configuration.setClassForTemplateLoading
-                      (HelloWorldMongoDBSparkFreemarkerStyle.class, "/freemarker");
+                      (HelloWorldMongoDBSparkFreemarkerStyle.class, "/");
 
         MongoClient client = new MongoClient(new ServerAddress("localhost", 27017));
 
