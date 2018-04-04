@@ -62,8 +62,6 @@ public class BlogController {
         sessionDAO = new SessionDAO(blogDatabase);
 
         cfg = createFreemarkerConfiguration();
-        cfg.setClassForTemplateLoading
-                (BlogController.class, "/freemarker");
         port(8082);
         initializeRoutes();
     }
@@ -75,9 +73,9 @@ public class BlogController {
 
             // this is where we would normally load up the blog data
             // but this week, we just display a placeholder.
-            HashMap<String, String> root = new HashMap<String, String>();
+            HashMap<String, String> root = new HashMap<>();
 
-            return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "blog_template.ftl"));
+            return render(root, "blog_template.ftl");
 
         });
 
@@ -98,7 +96,7 @@ public class BlogController {
                 if (!userDAO.addUser(username, password, email)) {
                     // duplicate user
                     root.put("username_error", "Username already in use, Please choose another");
-                    return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "signup.ftl"));
+                    return render(root, "signup.ftl");
                 }
                 else {
                     // good user, let's start a session
@@ -113,14 +111,14 @@ public class BlogController {
             else {
                 // bad signup
                 System.out.println("User Registration did not validate");
-                return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "signup.ftl"));
+                return render(root, "signup.ftl");
             }
 
         });
 
         // present signup form for blog
         get("/signup", (request, response) -> {
-            SimpleHash root = new SimpleHash();
+            HashMap<String, String> root = new HashMap<>();
 
             // initialize values for the form.
             root.put("username", "");
@@ -131,7 +129,7 @@ public class BlogController {
             root.put("email_error", "");
             root.put("verify_error", "");
 
-            return  new FreeMarkerEngine(cfg).render(new ModelAndView(root,"signup.ftl"));
+            return  render(root, "signup.ftl");
         });
 
 
@@ -146,10 +144,10 @@ public class BlogController {
                 return null;
             }
             else {
-                SimpleHash root = new SimpleHash();
+                HashMap<String, String> root = new HashMap<>();
 
                 root.put("username", username);
-                return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "welcome.ftl"));
+                return render(root, "welcome.ftl");
 
             }
 
@@ -158,11 +156,11 @@ public class BlogController {
 
         // present the login page
         get("/login", (request, response) -> {
-            SimpleHash root = new SimpleHash();
+            HashMap<String, String> root = new HashMap<>();
 
             root.put("username", "");
             root.put("login_error", "");
-            return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "login.ftl"));
+            return render(root, "login.ftl");
         });
 
         // process output coming from login form. On success redirect folks to the welcome page
@@ -193,13 +191,13 @@ public class BlogController {
                 }
             }
             else {
-                SimpleHash root = new SimpleHash();
+                HashMap<String, String> root = new HashMap<>();
 
 
                 root.put("username", StringEscapeUtils.escapeHtml4(username));
                 root.put("password", "");
                 root.put("login_error", "Invalid Login");
-                return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "login.ftl"));
+                return render(root, "login.ftl");
             }
 
         });
@@ -233,10 +231,10 @@ public class BlogController {
 
         // used to process internal errors
         get("/internal_error", (request, response) -> {
-            SimpleHash root = new SimpleHash();
+            HashMap<String, String> root = new HashMap<>();
 
             root.put("error", "System has encountered an error.");
-            return new FreeMarkerEngine(cfg).render(new ModelAndView(root, "error_template.ftl"));
+            return render(root, "error_template.ftl");
         });
     }
 
@@ -329,5 +327,9 @@ public class BlogController {
         Configuration retVal = new Configuration();
         retVal.setClassForTemplateLoading(BlogController.class, "/freemarker");
         return retVal;
+    }
+
+    private String render(HashMap<String, String> model, String templatePath){
+        return new FreeMarkerEngine(cfg).render(new ModelAndView(model, templatePath));
     }
 }
