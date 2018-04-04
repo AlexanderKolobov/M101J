@@ -1,4 +1,4 @@
-package com.mongodb.week_2.HW2;
+package com.mongodb.week_2.hw2;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
