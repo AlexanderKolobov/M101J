@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package course;
+package blog;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoDatabase;
 import freemarker.template.Configuration;
-import freemarker.template.SimpleHash;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bson.Document;
 import spark.ModelAndView;
@@ -267,7 +266,7 @@ public class BlogController {
     // tags the tags string and put it into an array
     private ArrayList<String> extractTags(String tags) {
 
-        // probably more efficent ways to do this.
+        // probably more efficient ways to do this.
         //
         // whitespace = re.compile('\s')
 

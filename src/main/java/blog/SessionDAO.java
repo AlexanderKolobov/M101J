@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package course;
+package blog;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
