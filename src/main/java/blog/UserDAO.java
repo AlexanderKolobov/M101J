@@ -72,7 +72,7 @@ public class UserDAO {
     }
 
     public Document validateLogin(String username, String password) {
-        Document user = null;
+        Document user;
 
         // XXX look in the user collection for a user that has this username
         // assign the result to the user variable.
